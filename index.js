@@ -23,7 +23,7 @@ app.post(
 	generateDiscountCode
 );
 
-app.post(
+app.get(
 	adminRoutes.GENERATE_STORE_SUMMARY,
 	generateStoreSummary
 );
@@ -46,7 +46,7 @@ app.use(function(err, req, res, next) {
 		return res.status(err.statusCode).json(err)
 	}
 
-	return res.status(500).json(err)
+	return res.status(400).json(err)
 });
 
 app.listen(PORT, () => {

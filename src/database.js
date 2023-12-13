@@ -43,4 +43,20 @@ exports.inventory = [
 
 exports.cart = [];
 
+exports.purchasedItems = [
+	{
+		id: 12,
+		name: 'item 12',
+		price: '234 INR',
+		discountCode: null,
+	},
+	{
+		id: 14,
+		name: 'item 14',
+		price: '214 INR',
+		discountCode: 'CODE12'
+	}
+];
+
+// Each coupon code is worth discount of 10%
 exports.discountCodes = [];

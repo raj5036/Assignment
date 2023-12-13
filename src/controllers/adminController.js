@@ -1,4 +1,5 @@
-const { discountCodes } = require("../database");
+const { discountCodes, purchasedItems } = require("../database");
+const adminServices = require('../services/adminServices');
 
 
 exports.generateDiscountCode = (req, res) => {
@@ -8,11 +9,22 @@ exports.generateDiscountCode = (req, res) => {
 	)
 	.then(() => {
 		console.log('Successfully added Discount Code to Database');
-		return res.status(200).json({'code': 'SUCCESS', 'msg': 'Successfully created Discount Code'});
+		return res.status(201).json({'code': 'SUCCESS', 'data': 'Successfully created Discount Code'});
 	})
 	.catch(err => {
-		return res.status(500).json({'code': 'FAILED', 'msg': 'Something went wrong'});
+		return res.status(500).json({'code': 'FAILED', 'data': err});
 	})
 };
 
-exports.generateStoreSummary = (req, res) => {};
+exports.generateStoreSummary = (req, res) => {
+	return Promise.resolve(
+		adminServices.generateStoreSummary()
+	)
+	.then(data => {
+		console.log('Successfully fetched store summary', data);
+		res.status(200).json({'code': 'SUCCESS', data});
+	})
+	.catch(err => {
+		return res.status(500).json({'code': 'FAILED', 'data': err});
+	});
+};
