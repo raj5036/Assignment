@@ -42,3 +42,5 @@ exports.inventory = [
 ];
 
 exports.cart = [];
+
+exports.discountCodes = [];
