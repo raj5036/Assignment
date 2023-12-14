@@ -1,5 +1,6 @@
-const { Inventory, Cart } = require("../database");
+const { Inventory, Cart, Orders, DiscountCodes } = require("../database");
 const { ERROR } = require("../handlers/error");
+const { DISCOUNT_FREQUENCY } = require("../utils/constants");
 
 
 exports.addToCartService = (itemId, userId, desiredCount) => {
@@ -29,4 +30,51 @@ exports.addToCartService = (itemId, userId, desiredCount) => {
 		userId,
 	});
 	return Cart;
-}
+};
+
+exports.checkoutService = (userId, discountCode) => {
+	// Check if Cart is empty for current user
+	const userCartItems = Cart.filter(item => item.userId === userId);
+	if (!userCartItems.length) {
+		throw ERROR.EMPTY_CART_ERROR;
+	}
+
+	// Transfer Cart Items to 'Orders' store
+	const orderSummary = {
+		userId,
+		orderTotalPrice: userCartItems.reduce((total, item) => {
+			return total + parseInt(item.price)
+		}, 0),
+		...discountCalculator(userCartItems, discountCode),
+		orderedItems: userCartItems
+	};
+	Orders.push(orderSummary);
+
+	// Remove Items from Cart
+	Cart = Cart.filter(item => item.userId !== userId);
+
+	return orderSummary;
+};
+
+const discountCalculator = (userCartItems, discountCode) => {
+	// Check if discount needs to be applied
+	const currentOrderNumber = Orders.length + 1;
+	let discountSummary = {
+		appliedDiscountCode: null,
+		discountedOrderPrice: null
+	};
+	if (currentOrderNumber % DISCOUNT_FREQUENCY == 0) {
+		const appliedDiscountCode = isDiscountCodeValid(discountCode) ? discountCode : DiscountCodes.shift();
+		const discountedOrderPrice = (userCartItems.reduce((total, userCartItem) => {
+			return total + parseInt(userCartItem.price);
+		}, 0)) * 0.1;
+		discountSummary['appliedDiscountCode'] = appliedDiscountCode;
+		discountSummary['discountedOrderPrice'] = discountedOrderPrice;
+	}
+
+	return discountSummary;
+};
+
+const isDiscountCodeValid = (userSubmittedDiscountCode) => {
+	return DiscountCodes.some(discountCode => discountCode === userSubmittedDiscountCode);
+};

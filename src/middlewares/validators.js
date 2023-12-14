@@ -19,6 +19,7 @@ exports.addToCartValidator = {
 
 exports.checkoutValidator = {
 	body: joi.object().keys({
+		userId: joi.string().required(),
 		discountCode: joi.string().optional()
 	})
 };

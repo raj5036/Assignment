@@ -13,5 +13,10 @@ exports.ERROR = {
 		statusCode: 409,
 		code: 'ITEM_ALREADY_IN_CART',
 		message: 'This item is already present in your Cart'
+	},
+	EMPTY_CART_ERROR: {
+		statusCode: 400,
+		code: 'EMPTY_CART_ERROR',
+		message: 'Cart is empty'
 	}
 };

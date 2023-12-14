@@ -77,5 +77,7 @@ exports.PurchasedItems = [
 	}
 ];
 
+exports.Orders = [];
+
 // Each coupon code is worth discount of 10%
 exports.DiscountCodes = [];
