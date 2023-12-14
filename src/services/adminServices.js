@@ -1,11 +1,11 @@
-const { discountCodes, purchasedItems } = require("../database");
+const {PurchasedItems, DiscountCodes } = require("../database");
 
 exports.generateStoreSummary = () => {
 	let storeSummary = {
-		purchaseCount: purchasedItems.length,
-		purchasedItems,
-		discountCodes,
-		totalDiscountedAmount: purchasedItems.filter(purchasedItem => purchasedItem.discountCode).reduce((total, item) => {
+		purchaseCount: PurchasedItems.length,
+		purchasedItems: PurchasedItems,
+		discountCodes: DiscountCodes,
+		totalDiscountedAmount: PurchasedItems.filter(purchasedItem => purchasedItem.discountCode).reduce((total, item) => {
 			return total + (parseInt(item.price) * 10) / 100;
 		}, 0),
 	};

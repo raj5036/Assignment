@@ -1,11 +1,11 @@
-const { discountCodes, purchasedItems } = require("../database");
+const { DiscountCodes, PurchasedItems } = require("../database");
 const adminServices = require('../services/adminServices');
 
 
 exports.generateDiscountCodeController = (req, res) => {
 	const { discountCode } = req.body;
 	return Promise.resolve(
-		discountCodes.push(discountCode)
+		DiscountCodes.push(discountCode)
 	)
 	.then(() => {
 		console.log('Successfully added Discount Code to Database');
