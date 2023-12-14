@@ -12,12 +12,13 @@ exports.generateStoreSummaryValidator = {};
 exports.addToCartValidator = {
 	body: joi.object().keys({
 		itemId: joi.string().required(),
+		userId: joi.string().required(),
+		count: joi.number().required()
 	})
 };
 
 exports.checkoutValidator = {
 	body: joi.object().keys({
-		itemId: joi.string().required(),
 		discountCode: joi.string().optional()
 	})
 };

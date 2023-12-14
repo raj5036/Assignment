@@ -5,6 +5,6 @@ exports.adminRoutes = {
 };
 
 exports.clientRoutes = {
-	'ADD_TO_CART': 'add-to-cart',
-	'CHECKOUT': 'checkout'
+	'ADD_TO_CART': '/add-to-cart',
+	'CHECKOUT': '/checkout'
 };

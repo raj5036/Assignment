@@ -1,62 +1,81 @@
-exports.inventory = [
+exports.Inventory = [
 	{
-		id: 1,
+		id: "1",
 		name: 'item1',
 		price: '300 INR',
+		count: 30
 	},
 	{
-		id: 2,
+		id: "2",
 		name: 'item2',
 		price: '400 INR',
+		count: 321
 	},
 	{
-		id: 3,
+		id: "3",
 		name: 'item3',
 		price: '4300 INR',
+		count: 310
 	},
 	{
-		id: 4,
+		id: "4",
 		name: 'item4',
 		price: '3300 INR',
+		count: 20
 	},
 	{
-		id: 5,
+		id: "5",
 		name: 'item5',
 		price: '5300 INR',
+		count: 3120
 	},
 	{
-		id: 6,
+		id: "6",
 		name: 'item6',
 		price: '3006 INR',
+		count: 123
 	},
 	{
-		id: 7,
+		id: "7",
 		name: 'item7',
 		price: '30032 INR',
+		count: 310
 	},
 	{
-		id: 8,
+		id: "8",
 		name: 'item8',
 		price: '800 INR',
+		count: 130
 	}
 ];
 
-exports.cart = [];
+/**
+ * Cart = [{
+ * 	itemId: String,
+ * 	itemName: String,
+ * 	price: String,
+ * 	userId: String,
+ * 	count: Number
+ * }]
+ */
+exports.Cart = [];
 
-exports.purchasedItems = [
+exports.PurchasedItems = [
 	{
 		id: 12,
 		name: 'item 12',
 		price: '234 INR',
 		discountCode: null,
+		userId: '1'
 	},
 	{
 		id: 14,
 		name: 'item 14',
 		price: '214 INR',
-		discountCode: 'CODE12'
+		discountCode: 'CODE12',
+		userId: '5'
 	}
 ];
 
 // Each coupon code is worth discount of 10%
-exports.discountCodes = [];
+exports.DiscountCodes = [];
