@@ -77,7 +77,52 @@ exports.PurchasedItems = [
 	}
 ];
 
-exports.Orders = [];
+exports.Orders = [
+	{
+		userId: 'userId1',
+		orderTotalPrice: '9999 INR',
+		appliedDiscountCode: null,
+		discountedOrderPrice: null,
+		orderedItems: [
+			{
+				itemId: '133',
+				itemName: 'item 133',
+				price: '6666 INR',
+				count: 10,
+				userId: 'userId'
+			},
+			{
+				itemId: '145',
+				itemName: 'item 145',
+				price: '3333 INR',
+				count: 21,
+				userId: 'userId'
+			}
+		]
+	},
+	{
+		userId: 'userId2',
+		orderTotalPrice: '9999 INR',
+		appliedDiscountCode: 'CODE!@#',
+		discountedOrderPrice: '7689 INR',
+		orderedItems: [
+			{
+				itemId: '133',
+				itemName: 'item 133',
+				price: '6666 INR',
+				count: 10,
+				userId: 'userId2'
+			},
+			{
+				itemId: '148',
+				itemName: 'item 148',
+				price: '3333 INR',
+				count: 21,
+				userId: 'userId2'
+			}
+		]
+	}
+];
 
 // Each coupon code is worth discount of 10%
 exports.DiscountCodes = [];

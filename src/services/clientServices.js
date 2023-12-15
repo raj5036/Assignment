@@ -42,9 +42,9 @@ exports.checkoutService = (userId, discountCode) => {
 	// Transfer Cart Items to 'Orders' store
 	const orderSummary = {
 		userId,
-		orderTotalPrice: userCartItems.reduce((total, item) => {
-			return total + parseInt(item.price)
-		}, 0),
+		orderTotalPrice: `${userCartItems.reduce((total, item) => {
+			return total + parseFloat(item.price)
+		}, 0)} INR`,
 		...discountCalculator(userCartItems, discountCode),
 		orderedItems: userCartItems
 	};
@@ -66,7 +66,7 @@ const discountCalculator = (userCartItems, discountCode) => {
 	if (currentOrderNumber % DISCOUNT_FREQUENCY == 0) {
 		const appliedDiscountCode = isDiscountCodeValid(discountCode) ? discountCode : DiscountCodes.shift();
 		const discountedOrderPrice = (userCartItems.reduce((total, userCartItem) => {
-			return total + parseInt(userCartItem.price);
+			return total + parseFloat(userCartItem.price);
 		}, 0)) * 0.1;
 		discountSummary['appliedDiscountCode'] = appliedDiscountCode;
 		discountSummary['discountedOrderPrice'] = discountedOrderPrice;

@@ -1,4 +1,4 @@
-const {PurchasedItems, DiscountCodes } = require("../database");
+const { DiscountCodes, Orders } = require("../database");
 const { ERROR } = require("../handlers/error");
 
 exports.generateDiscountCode = (discountCode) => {
@@ -12,13 +12,32 @@ exports.generateDiscountCode = (discountCode) => {
 };
 
 exports.generateStoreSummary = () => {
+	const purchaseCount = {}; 
+
+	// Store purchase count as a dictionary {"item-ID": orderedCount}
+	Orders.forEach(order => {
+		order.orderedItems.forEach(item => {
+			const { itemId, count } = item;
+			const key = 'Item-ID-' + itemId;
+			if (purchaseCount[key]) {
+				purchaseCount[key] += count
+			} else {
+				purchaseCount[key] = count;
+			}
+		});
+	});
+
+	// Sum up total discounted amount for all Orders
+	const totalDiscountedAmount = Orders.filter(order => order.appliedDiscountCode).reduce((total, order) => {
+		const discountedAmount = parseFloat(order.orderTotalPrice) - parseFloat(order.discountedOrderPrice);
+		return total + discountedAmount;
+	}, 0);
+	
 	let storeSummary = {
-		purchaseCount: PurchasedItems.length,
-		purchasedItems: PurchasedItems,
+		purchaseCount,
+		purchasedItems: Object.keys(purchaseCount).map(key => key),
 		discountCodes: DiscountCodes,
-		totalDiscountedAmount: PurchasedItems.filter(purchasedItem => purchasedItem.discountCode).reduce((total, item) => {
-			return total + (parseInt(item.price) * 10) / 100;
-		}, 0),
+		totalDiscountedAmount,
 	};
 	return {storeSummary};
 };
