@@ -50,6 +50,12 @@ exports.checkoutService = (userId, discountCode) => {
 	};
 	Orders.push(orderSummary);
 
+	// Clean up Inventory
+	Cart.filter(item => item.userId === userId).forEach(cartItem => {
+		const index = Inventory.findIndex(inventoryItem => inventoryItem.id === cartItem.itemId);
+		Inventory[index].count -= cartItem.count;
+	})
+	
 	// Remove Items from Cart
 	Cart = Cart.filter(item => item.userId !== userId);
 
