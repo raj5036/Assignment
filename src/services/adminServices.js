@@ -1,4 +1,15 @@
 const {PurchasedItems, DiscountCodes } = require("../database");
+const { ERROR } = require("../handlers/error");
+
+exports.generateDiscountCode = (discountCode) => {
+	// Check if discountCode is already present
+	if (DiscountCodes.includes(discountCode)) {
+		throw ERROR.DUPLICATE_DISCOUNT_CODE;
+	}
+
+	DiscountCodes.push(discountCode);
+	return DiscountCodes;
+};
 
 exports.generateStoreSummary = () => {
 	let storeSummary = {
